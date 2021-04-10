@@ -5,22 +5,19 @@ import {Clock} from './src/components/organisms';
 
 export const App = () => {
   return (
-    <SafeAreaView>
+    <View style={styles.sectionContainer}>
       <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
-        <Clock />
-      </View>
-    </SafeAreaView>
+      <Clock />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingLeft: 12,
-    paddingRight: 12,
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
 });

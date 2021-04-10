@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 const PomodoroTimer = () => {
   return (
     <View style={styles.timerContainer}>
-      <Text style={styles.timerWatch}>00:00</Text>
+      <Text style={styles.timerWatch}>25:00</Text>
     </View>
   );
 };
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 300 / 2,
     borderWidth: 15,
-    borderColor: '#16a085',
+    borderColor: '#1abc9c',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 75,
     textAlign: 'center',
-    color: '#34495e',
+    color: '#2c3e50',
   },
 });
 
