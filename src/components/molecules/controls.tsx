@@ -1,27 +1,41 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Controls = () => {
-  const [isRunning, setIsRunning] = useState(false);
+interface Props {
+  current: any;
+  handlePlayPress: () => void;
+  handleResetPress: () => void;
+  handleStopPress: () => void;
+}
 
+const Controls = ({
+  current,
+  handlePlayPress,
+  handleResetPress,
+  handleStopPress,
+}: Props) => {
   return (
     <View style={styles.controlsContainer}>
-      <TouchableOpacity onPress={() => Alert.alert('Reset Pressed')}>
+      <TouchableOpacity onPress={handleResetPress}>
         <Text>
-          <Icon name="refresh-outline" size={30} color="#4F8EF7" />
+          <Icon name="refresh-outline" size={30} color="#95a5a6" />
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setIsRunning(!isRunning)}>
+      <TouchableOpacity onPress={handlePlayPress}>
         <Text>
           <Icon
-            name={isRunning ? 'pause-outline' : 'play-outline'}
+            name={
+              current.matches('timer_started')
+                ? 'pause-outline'
+                : 'play-outline'
+            }
             size={50}
             color="#1abc9c"
           />
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => Alert.alert('Stop Pressed')}>
+      <TouchableOpacity onPress={handleStopPress}>
         <Text>
           <Icon name="stop-outline" size={30} color="#e74c3c" />
         </Text>
