@@ -27,7 +27,11 @@ const Clock = () => {
 
   return (
     <View>
-      <Timer isRunning={current.matches('timer_started')} />
+      <Timer
+        isRunning={current.matches('timer_started')}
+        isReset={current.matches('timer_reset')}
+        isStopped={current.matches('timer_stopped')}
+      />
       <Controls
         current={current}
         handlePlayPress={handlePlayPress}

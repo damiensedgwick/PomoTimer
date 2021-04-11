@@ -15,6 +15,18 @@ export const pomodoroMachine = Machine({
       },
       on: {
         PAUSE_TIMER: 'idle',
+        STOP_TIMER: 'timer_stopped',
+        RESET_TIMER: 'timer_restart',
+      },
+    },
+    timer_stopped: {
+      on: {
+        START_TIMER: 'timer_started',
+      },
+    },
+    timer_restart: {
+      after: {
+        0: 'timer_started',
       },
     },
   },

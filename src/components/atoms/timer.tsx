@@ -1,16 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 
 interface Props {
   isRunning: boolean;
+  isReset: boolean;
+  isStopped: boolean;
 }
 
-const PomodoroTimer = ({isRunning}: Props) => {
-  const time = {minutes: 25, seconds: 0};
-  const [seconds, setSeconds] = useState(time.seconds);
-  const [minutes, setMinutes] = useState(time.minutes);
+const PomodoroTimer = ({isRunning, isReset, isStopped}: Props) => {
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(25);
 
   useEffect(() => {
+    if (isReset) {
+      Alert.alert('Reset True');
+    }
+
     let myInterval = setInterval(() => {
       if (isRunning) {
         if (seconds > 0) {
