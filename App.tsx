@@ -1,13 +1,13 @@
 import React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 
-import Clock from './src/components/clock';
+import PomodorTimer from './src/components/pomodorTimer';
 
 export const App = () => {
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="default" />
-      <Clock />
+      <PomodorTimer />
     </View>
   );
 };

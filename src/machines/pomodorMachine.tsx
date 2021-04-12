@@ -14,8 +14,16 @@ export const pomodoroMachine = Machine({
         1.5e6: 'idle',
       },
       on: {
+        STOP: 'stop',
         PAUSE: 'idle',
+        RESET: 'restart',
       },
     },
+    stop: {
+      on: {
+        START: 'running',
+      },
+    },
+    restart: {},
   },
 });
