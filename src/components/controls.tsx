@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props {
@@ -25,11 +25,7 @@ const Controls = ({
       <TouchableOpacity onPress={handlePlayPress}>
         <Text>
           <Icon
-            name={
-              current.matches('timer_started')
-                ? 'pause-outline'
-                : 'play-outline'
-            }
+            name={current.matches('running') ? 'pause-outline' : 'play-outline'}
             size={50}
             color="#1abc9c"
           />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 
-import {Clock} from './src/components/organisms';
+import Clock from './src/components/clock';
 
 export const App = () => {
   return (

@@ -2,18 +2,18 @@ import React, {useState} from 'react';
 import {Alert, View} from 'react-native';
 import {useMachine} from '@xstate/react';
 
-import {pomodoroMachine} from '../../machines/pomodorMachine';
-import {Timer} from '../atoms';
-import {Controls} from '../molecules';
+import {pomodoroMachine} from '../machines/pomodorMachine';
+import Timer from './timer';
+import Controls from './controls';
 
 const Clock = () => {
   const [current, send] = useMachine(pomodoroMachine);
 
   const handlePlayPress = () => {
-    if (current.matches('timer_started')) {
-      send('PAUSE_TIMER');
+    if (current.matches('running')) {
+      send('PAUSE');
     } else {
-      send('START_TIMER');
+      send('START');
     }
   };
 
@@ -25,13 +25,11 @@ const Clock = () => {
     Alert.alert('Reset Pressed');
   };
 
+  console.log(current.value);
+
   return (
     <View>
-      <Timer
-        isRunning={current.matches('timer_started')}
-        isReset={current.matches('timer_reset')}
-        isStopped={current.matches('timer_stopped')}
-      />
+      <Timer isRunning={current.matches('running')} />
       <Controls
         current={current}
         handlePlayPress={handlePlayPress}
