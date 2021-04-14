@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useMachine} from '@xstate/react';
@@ -7,10 +7,33 @@ import {pomodoroMachine} from '../machines/pomodorMachine';
 const PomodorTimer = () => {
   const [current, send] = useMachine(pomodoroMachine);
   const timerIsActive = current.matches('active');
-  const minutes = current.context.minutes;
-  const seconds = current.context.seconds;
+  const [minutes, setMinutes] = useState(current.context.minutes);
+  const [seconds, setSeconds] = useState(current.context.seconds);
 
   console.log(current.value);
+
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (timerIsActive) {
+        if (seconds > 0) {
+          setSeconds(seconds - 1);
+        }
+
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(myInterval);
+          } else {
+            setMinutes(minutes - 1);
+            setSeconds(59);
+          }
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   return (
     <View>
