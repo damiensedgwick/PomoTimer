@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useMachine} from '@xstate/react';
 import {pomodoroMachine} from '../machines/pomodorMachine';
@@ -14,6 +14,9 @@ const PomodorTimer = () => {
 
   return (
     <View>
+      <View style={styles.logoContainer}>
+        <Image source={require('../assets/logo.png')} />
+      </View>
       <View style={styles.timerContainer}>
         <Text style={styles.timerWatch}>
           {minutes === 0 && seconds === 0 ? null : (
@@ -59,6 +62,12 @@ const PomodorTimer = () => {
 };
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
   timerContainer: {
     marginTop: 40,
     marginBottom: 80,
