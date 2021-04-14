@@ -1,29 +1,54 @@
 import {Machine} from 'xstate';
 
-export const pomodoroMachine = Machine({
+interface PomodoroTimerStateSchema {
+  states: {
+    idle: {};
+    active: {};
+    inactive: {};
+    restart: {};
+  };
+}
+
+type PomodoroTimerEvent = {type: 'TOGGLE'} | {type: 'STOP'} | {type: 'RESTART'};
+
+interface PomodoroTimerContext {
+  minutes: number;
+  seconds: number;
+}
+
+export const pomodoroMachine = Machine<
+  PomodoroTimerContext,
+  PomodoroTimerStateSchema,
+  PomodoroTimerEvent
+>({
   id: 'pomodoro',
   initial: 'idle',
+  context: {
+    minutes: 25,
+    seconds: 0,
+  },
   states: {
     idle: {
       on: {
-        START: 'running',
+        TOGGLE: 'active',
       },
     },
-    running: {
+    active: {
+      on: {
+        TOGGLE: 'inactive',
+        STOP: 'idle',
+        RESTART: 'restart',
+      },
+    },
+    inactive: {
+      on: {
+        TOGGLE: 'active',
+      },
+    },
+    restart: {
       after: {
-        1.5e6: 'idle',
-      },
-      on: {
-        STOP: 'stop',
-        PAUSE: 'idle',
-        RESET: 'restart',
+        0: 'active',
       },
     },
-    stop: {
-      on: {
-        START: 'running',
-      },
-    },
-    restart: {},
   },
 });

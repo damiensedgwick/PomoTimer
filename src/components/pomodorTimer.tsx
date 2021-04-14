@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useMachine} from '@xstate/react';
@@ -6,60 +6,12 @@ import {pomodoroMachine} from '../machines/pomodorMachine';
 
 const PomodorTimer = () => {
   const [current, send] = useMachine(pomodoroMachine);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(25);
-  const [isRunning, setIsRunning] = useState(false);
+  const timerIsActive = current.matches('active');
+  // const [minutes, setMinutes] = useState(25);
+  // const [seconds, setSeconds] = useState(0);
 
-  useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (isRunning) {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        }
-
-        if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(myInterval);
-          } else {
-            setMinutes(minutes - 1);
-            setSeconds(59);
-          }
-        }
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(myInterval);
-    };
-  });
-
-  const handlePlayPress = () => {
-    if (current.matches('running')) {
-      send('PAUSE');
-      setIsRunning(!isRunning);
-    } else {
-      send('START');
-      setIsRunning(!isRunning);
-    }
-  };
-
-  const handleStopPress = () => {
-    if (current.matches('running')) {
-      send('STOP');
-      setMinutes(25);
-      setSeconds(0);
-      setIsRunning(!isRunning);
-    }
-  };
-
-  const handleResetPress = () => {
-    if (current.matches('running')) {
-      send('PAUSE');
-      setMinutes(25);
-      setSeconds(0);
-      send('START');
-    }
-  };
+  const minutes = current.context.minutes;
+  const seconds = current.context.seconds;
 
   console.log(current.value);
 
@@ -76,23 +28,30 @@ const PomodorTimer = () => {
         </Text>
       </View>
       <View style={styles.controlsContainer}>
-        <TouchableOpacity onPress={handleResetPress}>
+        <TouchableOpacity
+          onPress={() => {
+            send('RESTART');
+          }}>
           <Text>
             <Icon name="refresh-outline" size={30} color="#95a5a6" />
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handlePlayPress}>
+        <TouchableOpacity
+          onPress={() => {
+            send('TOGGLE');
+          }}>
           <Text>
             <Icon
-              name={
-                current.matches('running') ? 'pause-outline' : 'play-outline'
-              }
+              name={timerIsActive ? 'pause-outline' : 'play-outline'}
               size={50}
               color="#1abc9c"
             />
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleStopPress}>
+        <TouchableOpacity
+          onPress={() => {
+            send('STOP');
+          }}>
           <Text>
             <Icon name="stop-outline" size={30} color="#e74c3c" />
           </Text>
