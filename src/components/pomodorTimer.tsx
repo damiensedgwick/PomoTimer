@@ -7,9 +7,6 @@ import {pomodoroMachine} from '../machines/pomodorMachine';
 const PomodorTimer = () => {
   const [current, send] = useMachine(pomodoroMachine);
   const timerIsActive = current.matches('active');
-  // const [minutes, setMinutes] = useState(25);
-  // const [seconds, setSeconds] = useState(0);
-
   const minutes = current.context.minutes;
   const seconds = current.context.seconds;
 
