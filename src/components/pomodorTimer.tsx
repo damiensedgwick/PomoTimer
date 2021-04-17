@@ -7,10 +7,8 @@ import {pomodoroMachine} from '../machines/pomodorMachine';
 const PomodorTimer = () => {
   const [current, send] = useMachine(pomodoroMachine);
   const timerIsActive = current.matches('active');
-  const [minutes, setMinutes] = useState(current.context.minutes);
-  const [seconds, setSeconds] = useState(current.context.seconds);
-
-  console.log(current.value);
+  const [minutes, setMinutes] = useState(current.context.initialMinutes);
+  const [seconds, setSeconds] = useState(current.context.initialSeconds);
 
   useEffect(() => {
     let myInterval = setInterval(() => {
@@ -54,6 +52,8 @@ const PomodorTimer = () => {
         <TouchableOpacity
           onPress={() => {
             send('RESTART');
+            setMinutes(current.context.initialMinutes);
+            setSeconds(current.context.initialSeconds);
           }}>
           <Text>
             <Icon name="refresh-outline" size={30} color="#95a5a6" />
@@ -74,6 +74,8 @@ const PomodorTimer = () => {
         <TouchableOpacity
           onPress={() => {
             send('STOP');
+            setMinutes(current.context.initialMinutes);
+            setSeconds(current.context.initialSeconds);
           }}>
           <Text>
             <Icon name="stop-outline" size={30} color="#e74c3c" />
