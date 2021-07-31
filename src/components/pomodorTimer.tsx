@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useMachine} from '@xstate/react';
 import {pomodoroMachine} from '../machines/pomodorMachine';
+import {colors} from '../constants/colors';
 
 const PomodorTimer = () => {
   const [current, send] = useMachine(pomodoroMachine);
@@ -60,7 +61,7 @@ const PomodorTimer = () => {
             setSeconds(current.context.initialSeconds);
           }}>
           <Text>
-            <Icon name="refresh-outline" size={40} color="#95a5a6" />
+            <Icon name="refresh-outline" size={40} color={colors.defaultGrey} />
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -71,7 +72,7 @@ const PomodorTimer = () => {
             <Icon
               name={timerIsActive ? 'pause-outline' : 'play-outline'}
               size={80}
-              color="#1abc9c"
+              color={colors.defaultGreen}
             />
           </Text>
         </TouchableOpacity>
@@ -82,7 +83,7 @@ const PomodorTimer = () => {
             setSeconds(current.context.initialSeconds);
           }}>
           <Text>
-            <Icon name="stop-outline" size={40} color="#e74c3c" />
+            <Icon name="stop-outline" size={40} color={colors.defaultRed} />
           </Text>
         </TouchableOpacity>
       </View>
