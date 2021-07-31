@@ -1,13 +1,4 @@
-import {Machine, assign} from 'xstate';
-
-interface PomodoroTimerStateSchema {
-  states: {
-    idle: {};
-    active: {};
-    inactive: {};
-    restart: {};
-  };
-}
+import {assign, Machine} from 'xstate';
 
 type PomodoroTimerEvent = {type: 'TOGGLE'} | {type: 'STOP'} | {type: 'RESTART'};
 
@@ -18,7 +9,6 @@ interface PomodoroTimerContext {
 
 export const pomodoroMachine = Machine<
   PomodoroTimerContext,
-  PomodoroTimerStateSchema,
   PomodoroTimerEvent
 >({
   id: 'pomodoro',
@@ -47,7 +37,7 @@ export const pomodoroMachine = Machine<
     },
     restart: {
       after: {
-        250: 'active',
+        0: 'active',
       },
     },
   },

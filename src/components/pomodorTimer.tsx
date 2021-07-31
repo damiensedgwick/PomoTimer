@@ -19,7 +19,10 @@ const PomodorTimer = () => {
 
         if (seconds === 0) {
           if (minutes === 0) {
+            send('STOP');
             clearInterval(myInterval);
+            setMinutes(current.context.initialMinutes);
+            setSeconds(current.context.initialSeconds);
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);
@@ -43,7 +46,8 @@ const PomodorTimer = () => {
           {minutes === 0 && seconds === 0 ? null : (
             <Text>
               {' '}
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              {minutes < 1 ? `0${minutes}` : minutes}:
+              {seconds < 10 ? `0${seconds}` : seconds}
             </Text>
           )}
         </Text>
