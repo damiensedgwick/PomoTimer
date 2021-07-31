@@ -1,23 +1,20 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import PomodorTimer from './src/components/pomodorTimer';
 
+const Tab = createBottomTabNavigator();
+
 export const App = () => {
   return (
-    <View style={styles.sectionContainer}>
+    <NavigationContainer>
       <StatusBar barStyle="default" />
-      <PomodorTimer />
-    </View>
+      <Tab.Navigator tabBarOptions={{labelPosition: 'below-icon'}}>
+        <Tab.Screen name="Clock" component={PomodorTimer} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-});

@@ -37,7 +37,7 @@ const PomodorTimer = () => {
   });
 
   return (
-    <View>
+    <View style={styles.sectionContainer}>
       <View style={styles.logoContainer}>
         <Image source={require('../assets/logo.png')} />
       </View>
@@ -60,7 +60,7 @@ const PomodorTimer = () => {
             setSeconds(current.context.initialSeconds);
           }}>
           <Text>
-            <Icon name="refresh-outline" size={30} color="#95a5a6" />
+            <Icon name="refresh-outline" size={40} color="#95a5a6" />
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -70,7 +70,7 @@ const PomodorTimer = () => {
           <Text>
             <Icon
               name={timerIsActive ? 'pause-outline' : 'play-outline'}
-              size={50}
+              size={80}
               color="#1abc9c"
             />
           </Text>
@@ -82,7 +82,7 @@ const PomodorTimer = () => {
             setSeconds(current.context.initialSeconds);
           }}>
           <Text>
-            <Icon name="stop-outline" size={30} color="#e74c3c" />
+            <Icon name="stop-outline" size={40} color="#e74c3c" />
           </Text>
         </TouchableOpacity>
       </View>
@@ -91,15 +91,16 @@ const PomodorTimer = () => {
 };
 
 const styles = StyleSheet.create({
-  logoContainer: {
+  sectionContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'center',
-    marginBottom: 30,
+    alignItems: 'center',
   },
+  logoContainer: {},
   timerContainer: {
-    marginTop: 40,
-    marginBottom: 80,
+    marginTop: 56,
+    marginBottom: 56,
     height: 300,
     width: 300,
     borderRadius: 300 / 2,
@@ -111,16 +112,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   timerWatch: {
-    padding: 20,
     fontSize: 75,
     textAlign: 'center',
     color: '#2c3e50',
   },
   controlsContainer: {
+    width: 300,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 });
 
